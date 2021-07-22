@@ -7,7 +7,7 @@ Manage hierarchical concept trees with style
 3. Add optional weights to nodes
 4. List all nodes
 5. List nodes on a given depth
-6. 
+6. List all atomic nodes
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE1MzEwNzEyMiw4ODc4OTk1MTJdfQ==
+eyJoaXN0b3J5IjpbMTkzMDkyMDAwNSw4ODc4OTk1MTJdfQ==
 -->
