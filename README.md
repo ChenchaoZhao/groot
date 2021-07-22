@@ -1,7 +1,9 @@
 # groot
 Manage hierarchical concept trees with style
 
-$x + y$
+## Goals
+1. Save the trees in most compact format
+2. Be able to load the tr
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODg3ODk5NTEyXX0=
+eyJoaXN0b3J5IjpbMTkxMjA4MjAyNSw4ODc4OTk1MTJdfQ==
 -->
