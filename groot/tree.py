@@ -5,7 +5,7 @@ from typing import Dict, Optional, Set
 
 import yaml
 
-from .functional import all_leaf_nodes, build_nodes, push_atoms
+from .functional import all_leaf_nodes, build_nodes, index_nodes_by_level, push_atoms
 
 __all__ = ["Node", "Tree"]
 
@@ -67,47 +67,76 @@ class Node:
             return f"{self.parent} -> {self.name} -> {self.children}"
 
 
-@dataclass
 class Tree:
     """
     Tree data structure.
 
-    Paremeters
+    Parameters
     ----------
-
     nodes : Dict[str, Node]
-    name : Optional[str] = None
+        Lookup table for nodes.
+    name : Optional[str]
+        Name of the tree, default value `'-'.join(roots)`.
+
+    Attributes
+    ----------
+    roots : List[str]
+        List of roots.
+    atom_label : Dict[str, int]
+        Atom name to int label (0...n_atoms -1).
+    node_label : Dict[str, int]
+        Node name to overall int label (0...n_nodes-1).
+    node_level : Dict[str, int]
+        Lookup table of node level.
+    levels : List[Set[str]]
+        List of levels of nodes.
+    name : str
+        Name of the tree
     """
 
-    nodes: Dict[str, Node]
-    name: Optional[str] = None
-
-    def __post_init__(self):
+    def __init__(self, nodes: Dict[str, Node], name: Optional[str] = None):
         """
-        Generate the following additional attributes after init.
+        Init tree object.
 
-        roots : List[str]
-            sorted list of root names
-        atom_label : Dict[str, int]
-            atom name to int label sorted based on `str(atom)`
-        node_label : Dict[str, int]
-            node name to int label sorted based on `str(node)`
+        Parameters
+        ----------
+        nodes : Dict[str, Node]
+            Lookup table for nodes.
+        name : Optional[str]
+            Name of the tree, default value `'-'.join(roots)`.
         """
 
-        _roots = [v for k, v in self.nodes.items() if v.is_root]
+        _roots = [v for k, v in nodes.items() if v.is_root]
         _roots.sort(key=lambda x: -len(x.atoms))
         self.roots = [n.name for n in _roots]
 
-        _atoms = [v for k, v in self.nodes.items() if v.is_atom]
+        _atoms = [v for k, v in nodes.items() if v.is_atom]
         _atoms.sort(key=lambda x: str(x))
         self.atom_label = {a.name: i for i, a in enumerate(_atoms)}
 
-        _node = [n for n in self.nodes.values()]
+        _node = [n for n in nodes.values()]
         _node.sort(key=lambda x: str(x))
         self.node_label = {n.name: i for i, n in enumerate(_node)}
 
-        if not self.name:
-            self.name = "-".join(self.roots)
+        self.name = name if name else "-".join(self.roots)
+
+        self.__nodes = nodes
+
+        node_level, levels = index_nodes_by_level(nodes)
+        self.node_level = node_level
+        self.levels = levels
+
+    @property
+    def nodes(self) -> Dict[str, Node]:
+        """
+        Short summary.
+
+        Returns
+        -------
+        Dict[str, Node]
+            Return nodes, making it read-only.
+        """
+        return self.__nodes
 
     def subtree_nodes(self, root: str) -> Dict[str, Node]:
         """
