@@ -47,7 +47,7 @@ def push_atoms(
     atoms: Optional[Union[Set[str], List[str], Tuple[str]]] = None,
 ) -> None:
     """
-    Pushs atoms to all nodes.
+    Push atoms to all nodes.
 
     Parameters
     ----------
@@ -84,3 +84,30 @@ def push_atoms(
             continue
 
         _ = _get_atoms(node)
+
+
+def all_leaf_nodes(root: str, nodes: Dict[str, Node]) -> Set[str]:
+    """
+    Get all leaf nodes of a given root (included).
+
+    Parameters
+    ----------
+    root : str
+        Name of `root` which should be in nodes.
+    nodes : Dict[str, Node]
+        Lookup table of `nodes`.
+
+    Returns
+    -------
+    Set[str]
+        Set of all leaf nodes including root.
+    """
+
+    root_node = nodes[root]
+    leaf_nodes = {root}
+    if root_node.is_atom:
+        return leaf_nodes
+    for c in root_node.children:
+        leaf_nodes.update(all_leaf_nodes(c, nodes))
+
+    return leaf_nodes

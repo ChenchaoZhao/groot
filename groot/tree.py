@@ -3,6 +3,8 @@
 from dataclasses import *
 from typing import *
 
+__all__ = ["Node"]
+
 
 @dataclass
 class Node:
