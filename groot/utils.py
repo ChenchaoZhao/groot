@@ -4,7 +4,9 @@ from .tree import Node, Tree
 __all__ = ["draw_tree"]
 
 
-def draw_tree(tree: Tree, tree_space: int = 3) -> str:
+def draw_tree(
+    tree: Tree, tree_space: int = 3, atom_marker: str = "■", show_level: bool = True
+) -> str:
     """
     Plot tree structure.
 
@@ -13,7 +15,11 @@ def draw_tree(tree: Tree, tree_space: int = 3) -> str:
     tree : Tree
         A `Tree` object.
     tree_space : int
-        Number of space in markers
+        Number of space in markers.
+    atom_marker : str
+        Marker for atom nodes.
+    show_level : bool
+        If `True` levels will be added as a header
 
     Returns
     -------
@@ -53,7 +59,7 @@ def draw_tree(tree: Tree, tree_space: int = 3) -> str:
         for marker, child in zip(markers, children):
 
             if nodes[child].is_atom:
-                yield prefix + marker + child + " ■"
+                yield prefix + marker + child + " " + atom_marker
             else:
                 yield prefix + marker + child
                 extension = Marker.BRANCH if marker == Marker.TEE else Marker.SPACE
@@ -62,12 +68,13 @@ def draw_tree(tree: Tree, tree_space: int = 3) -> str:
     nodes = tree.nodes
 
     lines = []
-    gap = " " * tree_space
-    lines.append(
-        gap.join("\b" * (len(str(l)) - 1) + str(l) for l in range(len(tree.levels)))
-    )
-    dash = "─" * tree_space
-    lines.append(dash.join("┼" for l in range(len(tree.levels))))
+    if show_level:
+        gap = " " * tree_space
+        lines.append(
+            gap.join("\b" * (len(str(l)) - 1) + str(l) for l in range(len(tree.levels)))
+        )
+        dash = "─" * tree_space
+        lines.append(dash.join("┼" for l in range(len(tree.levels))))
 
     for root in tree.roots:
         lines.append(root)
