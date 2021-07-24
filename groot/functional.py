@@ -1,7 +1,7 @@
 """functions used by tree class."""
-from typing import Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, List, NewType, Optional, Set, Tuple, Union
 
-from .tree import Node
+Node = NewType("Node", Any)
 
 
 def build_nodes(child_to_parent: Dict[str, str]) -> Dict[str, Node]:
