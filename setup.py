@@ -18,4 +18,5 @@ setup(
     long_description_content_type="text/markdown",
     install_requires=["dataclasses"],
     license="MIT",
+    url="https://chenchaozhao.github.io/groot/",
 )
