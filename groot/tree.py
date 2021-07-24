@@ -1,9 +1,13 @@
 """Core data structures."""
+from copy import deepcopy
+from dataclasses import dataclass, field
+from typing import Dict, Optional, Set
 
-from dataclasses import *
-from typing import *
+import yaml
 
-__all__ = ["Node"]
+from .functional import all_leaf_nodes, build_nodes, push_atoms
+
+__all__ = ["Node", "Tree"]
 
 
 @dataclass

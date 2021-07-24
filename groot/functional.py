@@ -1,5 +1,5 @@
 """functions used by tree class."""
-from typing import *
+from typing import Dict, List, Optional, Set, Tuple, Union
 
 from .tree import Node
 
