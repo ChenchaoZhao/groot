@@ -54,7 +54,7 @@ def push_atoms(
     nodes : Dict[str, Node]
         Lookup table of `nodes`.
     atoms : Optional[Union[Set[str], List[str], Tuple[str]]]
-        Given set of `atoms`. If None, `atoms` will be infered from `nodes`
+        Given set of `atoms`. If None, `atoms` will be inferred from `nodes`
     """
 
     def _get_atoms(node: Node) -> Set[str]:
