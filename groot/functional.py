@@ -1,0 +1,86 @@
+"""functions used by tree class."""
+from typing import *
+
+from .tree import Node
+
+
+def build_nodes(child_to_parent: Dict[str, str]) -> Dict[str, Node]:
+    """
+    Build dictionary of nodes from child-to-parent mapping.
+
+    Parameters
+    ----------
+    child_to_parent : Dict[str, str]
+        Maps child node name to its parent's name.
+
+    Returns
+    -------
+    Dict[str, Node]
+        Lookup table for all nodes: name -> Node where Node contains
+        - parent name
+        - set of child names
+    """
+
+    nodes: Dict[str, Node] = dict()
+
+    def init(name):
+        nodes[name] = Node(name, child_to_parent[name])
+
+    for c, p in child_to_parent.items():
+
+        if not p:  # if root skip
+            continue
+
+        if p not in nodes:
+            init(p)
+
+        nodes[p].children.add(c)
+
+        if c not in nodes:
+            init(c)
+
+    return nodes
+
+
+def push_atoms(
+    nodes: Dict[str, Node],
+    atoms: Optional[Union[Set[str], List[str], Tuple[str]]] = None,
+) -> None:
+    """
+    Pushs atoms to all nodes.
+
+    Parameters
+    ----------
+    nodes : Dict[str, Node]
+        Lookup table of `nodes`.
+    atoms : Optional[Union[Set[str], List[str], Tuple[str]]]
+        Given set of `atoms`. If None, `atoms` will be infered from `nodes`
+    """
+
+    def _get_atoms(node: Node) -> Set[str]:
+
+        if node.atoms:
+            return node.atoms
+
+        if node.is_atom:
+            node.atoms.add(node.name)
+            return node.atoms
+
+        for c in node.children:
+            node.atoms.update(_get_atoms(nodes[c]))
+
+        return node.atoms
+
+    if atoms is None:
+        atoms = [k for k, v in nodes.items() if v.is_atom]
+    else:
+        atoms = list(atoms)
+
+    atoms.sort()
+
+    for name, node in nodes.items():
+
+        if node.atoms:
+            continue
+
+        _ = _get_atoms(node)
