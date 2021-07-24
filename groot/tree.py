@@ -1,3 +1,5 @@
+"""Core data structures."""
+
 from dataclasses import *
 from typing import *
 
