@@ -19,6 +19,21 @@ def draw_tree(tree: Tree, tree_space: int = 3) -> str:
     -------
     str
         Tree diagram string.
+
+    Example
+    -------
+    0   1   2
+    ┼───┼───┼
+    a
+    ├── a.a
+    │   ├── a.a.b ■
+    │   └── a.a.a ■
+    ├── a.c ■
+    └── a.b
+        └── a.b.a ■
+    b
+    ├── b.a ■
+    └── b.b ■
     """
 
     tree_space = max(int(tree_space), 1)
