@@ -28,6 +28,7 @@ def draw_tree(
 
     Example
     -------
+    ```
     0   1   2
     ┼───┼───┼
     a
@@ -40,6 +41,7 @@ def draw_tree(
     b
     ├── b.a ■
     └── b.b ■
+    ```
     """
 
     tree_space = max(int(tree_space), 1)
