@@ -34,5 +34,7 @@ print(groot.utils.draw_tree(tree, show_level=True))
     b
     ├── b.a ■
     └── b.b ■
-
 ```
+
+## Documentation
+[Full documentation](https://chenchaozhao.github.io/groot/groot.html)
