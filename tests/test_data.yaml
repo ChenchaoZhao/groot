@@ -1,0 +1,19 @@
+tree-0:
+  a:
+  a.a: a
+  a.b: a
+
+tree-1:
+  a:
+  a.a: a
+  a.b: a
+  a.a.a: a.a
+
+tree-2:
+  a:
+  a.a: a
+  a.b: a
+  a.a.a: a.a
+  b:
+  b.a: b
+  b.b: b
