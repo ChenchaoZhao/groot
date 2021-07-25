@@ -31,33 +31,6 @@
                     <h2>API Documentation</h2>
                         <ul class="memberlist">
             <li>
-                    <a class="class" href="#Node">Node</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#Node.__init__">Node</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.name">name</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.parent">parent</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.children">children</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.atoms">atoms</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.is_root">is_root</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.is_atom">is_atom</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
                     <a class="class" href="#Tree">Tree</a>
                             <ul class="memberlist">
                         <li>
@@ -109,71 +82,14 @@
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;Core data structures.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">yaml</span>
 
 <span class="kn">from</span> <span class="nn">.functional</span> <span class="kn">import</span> <span class="n">all_leaf_nodes</span><span class="p">,</span> <span class="n">build_nodes</span><span class="p">,</span> <span class="n">index_nodes_by_level</span><span class="p">,</span> <span class="n">push_atoms</span>
+<span class="kn">from</span> <span class="nn">.node</span> <span class="kn">import</span> <span class="n">Node</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="s2">&quot;Tree&quot;</span><span class="p">]</span>
-
-
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Node data structure.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    name : str</span>
-<span class="sd">    parent: Optional[str]</span>
-<span class="sd">    children: Set[str], initialized as set()</span>
-<span class="sd">    atoms: Set[str], initialized as set()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">parent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">children</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
-    <span class="n">atoms</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check if the node is root node.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        bool</span>
-<span class="sd">            Node is root.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check if the node is atomic, i.e. the finest level.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        bool</span>
-<span class="sd">            Node is atomic.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">==</span> <span class="nb">set</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Display the parent-child relations of the node.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        str</span>
-<span class="sd">            Node relations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;*</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Tree&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">:</span>
@@ -349,177 +265,6 @@
         </details>
 
             </section>
-                <section id="Node">
-                                <div class="attr class">
-        <a class="headerlink" href="#Node">#&nbsp;&nbsp</a>
-
-                <div class="decorator">@dataclass</div>
-
-        <span class="def">class</span>
-        <span class="name">Node</span>:
-    </div>
-
-                <details>
-            <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Node data structure.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    name : str</span>
-<span class="sd">    parent: Optional[str]</span>
-<span class="sd">    children: Set[str], initialized as set()</span>
-<span class="sd">    atoms: Set[str], initialized as set()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">parent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">children</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
-    <span class="n">atoms</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check if the node is root node.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        bool</span>
-<span class="sd">            Node is root.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check if the node is atomic, i.e. the finest level.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        bool</span>
-<span class="sd">            Node is atomic.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">==</span> <span class="nb">set</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Display the parent-child relations of the node.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        str</span>
-<span class="sd">            Node relations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;*</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="si">}</span><span class="s2">&quot;</span>
-</pre></div>
-
-        </details>
-
-            <div class="docstring"><p>Node data structure.</p>
-
-<h6 id="parameters">Parameters</h6>
-
-<ul>
-<li><p><strong>name</strong> (str):</p></li>
-<li><p><strong>parent</strong> (Optional[str]):</p></li>
-<li><p><strong>children</strong> (Set[str], initialized as set()):</p></li>
-<li><p><strong>atoms</strong> (Set[str], initialized as set()):</p></li>
-</ul>
-</div>
-
-
-                            <div id="Node.__init__" class="classattr">
-                                        <div class="attr function"><a class="headerlink" href="#Node.__init__">#&nbsp;&nbsp</a>
-
-        
-            <span class="name">Node</span><span class="signature">(
-    name: str,
-    parent: Optional[str] = None,
-    children: Set[str] = &lt;factory&gt;,
-    atoms: Set[str] = &lt;factory&gt;
-)</span>
-    </div>
-
-        
-    
-
-                            </div>
-                            <div id="Node.name" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.name">#&nbsp;&nbsp</a>
-
-        <span class="name">name</span><span class="annotation">: str</span>
-    </div>
-
-    
-
-                            </div>
-                            <div id="Node.parent" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.parent">#&nbsp;&nbsp</a>
-
-        <span class="name">parent</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-    </div>
-
-    
-
-                            </div>
-                            <div id="Node.children" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.children">#&nbsp;&nbsp</a>
-
-        <span class="name">children</span><span class="annotation">: Set[str]</span>
-    </div>
-
-    
-
-                            </div>
-                            <div id="Node.atoms" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.atoms">#&nbsp;&nbsp</a>
-
-        <span class="name">atoms</span><span class="annotation">: Set[str]</span>
-    </div>
-
-    
-
-                            </div>
-                            <div id="Node.is_root" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.is_root">#&nbsp;&nbsp</a>
-
-        <span class="name">is_root</span><span class="annotation">: bool</span>
-    </div>
-
-            <div class="docstring"><p>Check if the node is root node.</p>
-
-<h6 id="returns">Returns</h6>
-
-<ul>
-<li><strong>bool</strong>: Node is root.</li>
-</ul>
-</div>
-
-
-                            </div>
-                            <div id="Node.is_atom" class="classattr">
-                                            <div class="attr variable"><a class="headerlink" href="#Node.is_atom">#&nbsp;&nbsp</a>
-
-        <span class="name">is_atom</span><span class="annotation">: bool</span>
-    </div>
-
-            <div class="docstring"><p>Check if the node is atomic, i.e. the finest level.</p>
-
-<h6 id="returns">Returns</h6>
-
-<ul>
-<li><strong>bool</strong>: Node is atomic.</li>
-</ul>
-</div>
-
-
-                            </div>
-                </section>
                 <section id="Tree">
                                 <div class="attr class">
         <a class="headerlink" href="#Tree">#&nbsp;&nbsp</a>
@@ -737,7 +482,7 @@ Name of the tree</li>
                                         <div class="attr function"><a class="headerlink" href="#Tree.__init__">#&nbsp;&nbsp</a>
 
         
-            <span class="name">Tree</span><span class="signature">(nodes: Dict[str, <a href="#Node">groot.tree.Node</a>], name: Optional[str] = None)</span>
+            <span class="name">Tree</span><span class="signature">(nodes: Dict[str, <a href="node.html#Node">groot.node.Node</a>], name: Optional[str] = None)</span>
     </div>
 
                 <details>
@@ -794,7 +539,7 @@ Name of the tree, default value <code>'-'.join(roots)</code>.</li>
                             <div id="Tree.nodes" class="classattr">
                                             <div class="attr variable"><a class="headerlink" href="#Tree.nodes">#&nbsp;&nbsp</a>
 
-        <span class="name">nodes</span><span class="annotation">: Dict[str, <a href="#Node">groot.tree.Node</a>]</span>
+        <span class="name">nodes</span><span class="annotation">: Dict[str, <a href="node.html#Node">groot.node.Node</a>]</span>
     </div>
 
             <div class="docstring"><p>Short summary.</p>
@@ -813,7 +558,7 @@ Name of the tree, default value <code>'-'.join(roots)</code>.</li>
 
         
             <span class="def">def</span>
-            <span class="name">subtree_nodes</span><span class="signature">(self, root: str) -&gt; Dict[str, <a href="#Node">groot.tree.Node</a>]</span>:
+            <span class="name">subtree_nodes</span><span class="signature">(self, root: str) -&gt; Dict[str, <a href="node.html#Node">groot.node.Node</a>]</span>:
     </div>
 
                 <details>
