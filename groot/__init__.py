@@ -2,7 +2,7 @@
 The package helps manage hierarchical concept trees.
 
 Each tree can be serialized as a yaml file and each file can be loaded to
-construct the python class.
+construct the python class `Tree`.
 
 Goals
 -----
@@ -35,7 +35,7 @@ b
 ```
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 from . import functional, tree, utils
 from .tree import Tree
