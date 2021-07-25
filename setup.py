@@ -8,7 +8,7 @@ with open("README.md", "r") as f:
 
 
 setup(
-    name="Groot",
+    name="i-am-groot",
     version=__version__,
     author="Chenchao Zhao",
     author_email="chenchao.zhao@gmail.com",
