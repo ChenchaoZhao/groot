@@ -1,70 +1,13 @@
 """Core data structures."""
 from copy import deepcopy
-from dataclasses import dataclass, field
-from typing import Dict, Optional, Set
+from typing import Dict, Optional
 
 import yaml
 
 from .functional import all_leaf_nodes, build_nodes, index_nodes_by_level, push_atoms
+from .node import Node
 
-__all__ = ["Node", "Tree"]
-
-
-@dataclass
-class Node:
-    """
-    Node data structure.
-
-    Parameters
-    ----------
-    name : str
-    parent: Optional[str]
-    children: Set[str], initialized as set()
-    atoms: Set[str], initialized as set()
-    """
-
-    name: str
-    parent: Optional[str] = None
-    children: Set[str] = field(default_factory=set)
-    atoms: Set[str] = field(default_factory=set)
-
-    @property
-    def is_root(self) -> bool:
-        """
-        Check if the node is root node.
-
-        Returns
-        -------
-        bool
-            Node is root.
-        """
-        return self.parent is None
-
-    @property
-    def is_atom(self) -> bool:
-        """
-        Check if the node is atomic, i.e. the finest level.
-
-        Returns
-        -------
-        bool
-            Node is atomic.
-        """
-        return self.children == set()
-
-    def __str__(self) -> str:
-        """
-        Display the parent-child relations of the node.
-
-        Returns
-        -------
-        str
-            Node relations.
-        """
-        if self.is_root:
-            return f"*{self.name} -> {self.children}"
-        else:
-            return f"{self.parent} -> {self.name} -> {self.children}"
+__all__ = ["Tree"]
 
 
 class Tree:

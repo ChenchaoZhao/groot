@@ -1,5 +1,6 @@
 """Provide additional utils for tree class."""
-from .tree import Node, Tree
+from .node import Node
+from .tree import Tree
 
 __all__ = ["draw_tree"]
 
