@@ -422,12 +422,14 @@
 
             <div class="docstring"><p>Node data structure.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>name : str
-parent: Optional[str]
-children: Set[str], initialized as set()
-atoms: Set[str], initialized as set()</p>
+<ul>
+<li><p><strong>name</strong> (str):</p></li>
+<li><p><strong>parent</strong> (Optional[str]):</p></li>
+<li><p><strong>children</strong> (Set[str], initialized as set()):</p></li>
+<li><p><strong>atoms</strong> (Set[str], initialized as set()):</p></li>
+</ul>
 </div>
 
 
@@ -491,10 +493,11 @@ atoms: Set[str], initialized as set()</p>
 
             <div class="docstring"><p>Check if the node is root node.</p>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>bool
-    Node is root.</p>
+<ul>
+<li><strong>bool</strong>: Node is root.</li>
+</ul>
 </div>
 
 
@@ -507,10 +510,11 @@ atoms: Set[str], initialized as set()</p>
 
             <div class="docstring"><p>Check if the node is atomic, i.e. the finest level.</p>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>bool
-    Node is atomic.</p>
+<ul>
+<li><strong>bool</strong>: Node is atomic.</li>
+</ul>
 </div>
 
 
@@ -701,27 +705,31 @@ atoms: Set[str], initialized as set()</p>
 
             <div class="docstring"><p>Tree data structure.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>nodes : Dict[str, Node]
-    Lookup table for nodes.
-name : Optional[str]
-    Name of the tree, default value <code>'-'.join(roots)</code>.</p>
+<ul>
+<li><strong>nodes</strong> (Dict[str, Node]):
+Lookup table for nodes.</li>
+<li><strong>name</strong> (Optional[str]):
+Name of the tree, default value <code>'-'.join(roots)</code>.</li>
+</ul>
 
-<h2 id="attributes">Attributes</h2>
+<h6 id="attributes">Attributes</h6>
 
-<p>roots : List[str]
-    List of roots.
-atom_label : Dict[str, int]
-    Atom name to int label (0...n_atoms -1).
-node_label : Dict[str, int]
-    Node name to overall int label (0...n_nodes-1).
-node_level : Dict[str, int]
-    Lookup table of node level.
-levels : List[Set[str]]
-    List of levels of nodes.
-name : str
-    Name of the tree</p>
+<ul>
+<li><strong>roots</strong> (List[str]):
+List of roots.</li>
+<li><strong>atom_label</strong> (Dict[str, int]):
+Atom name to int label (0...n_atoms -1).</li>
+<li><strong>node_label</strong> (Dict[str, int]):
+Node name to overall int label (0...n_nodes-1).</li>
+<li><strong>node_level</strong> (Dict[str, int]):
+Lookup table of node level.</li>
+<li><strong>levels</strong> (List[Set[str]]):
+List of levels of nodes.</li>
+<li><strong>name</strong> (str):
+Name of the tree</li>
+</ul>
 </div>
 
 
@@ -771,12 +779,14 @@ name : str
 
             <div class="docstring"><p>Init tree object.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>nodes : Dict[str, Node]
-    Lookup table for nodes.
-name : Optional[str]
-    Name of the tree, default value <code>'-'.join(roots)</code>.</p>
+<ul>
+<li><strong>nodes</strong> (Dict[str, Node]):
+Lookup table for nodes.</li>
+<li><strong>name</strong> (Optional[str]):
+Name of the tree, default value <code>'-'.join(roots)</code>.</li>
+</ul>
 </div>
 
 
@@ -789,10 +799,11 @@ name : Optional[str]
 
             <div class="docstring"><p>Short summary.</p>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Dict[str, Node]
-    Return nodes, making it read-only.</p>
+<ul>
+<li><strong>Dict[str, Node]</strong>: Return nodes, making it read-only.</li>
+</ul>
 </div>
 
 
@@ -828,15 +839,18 @@ name : Optional[str]
 
             <div class="docstring"><p>Get nodes of the subtree at <code>root</code>.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>root : str
-    Name of root.</p>
+<ul>
+<li><strong>root</strong> (str):
+Name of root.</li>
+</ul>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Dict[str, Node]
-    Lookup table of subtree nodes.</p>
+<ul>
+<li><strong>Dict[str, Node]</strong>: Lookup table of subtree nodes.</li>
+</ul>
 </div>
 
 
@@ -874,15 +888,18 @@ name : Optional[str]
 
             <div class="docstring"><p>Generate subtree at <code>root</code>.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>root : str
-    Name of root.</p>
+<ul>
+<li><strong>root</strong> (str):
+Name of root.</li>
+</ul>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Tree
-    Subtree at <code>root</code>.</p>
+<ul>
+<li><strong>Tree</strong>: Subtree at <code>root</code>.</li>
+</ul>
 </div>
 
 
@@ -919,10 +936,11 @@ name : Optional[str]
 
             <div class="docstring"><p>Serialize the tree to dictionary, i.e. child-parent map.</p>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Dict[str, str]
-    Child-parent map.</p>
+<ul>
+<li><strong>Dict[str, str]</strong>: Child-parent map.</li>
+</ul>
 </div>
 
 
@@ -953,10 +971,11 @@ name : Optional[str]
 
             <div class="docstring"><p>Serialize the tree to yaml string.</p>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>str
-    Yaml string of child-parent map.</p>
+<ul>
+<li><strong>str</strong>: Yaml string of child-parent map.</li>
+</ul>
 </div>
 
 
@@ -996,15 +1015,18 @@ name : Optional[str]
 
             <div class="docstring"><p>Build tree from child-parent map.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>child_to_parent : Dict[str, str]
-    Child-parent map.</p>
+<ul>
+<li><strong>child_to_parent</strong> (Dict[str, str]):
+Child-parent map.</li>
+</ul>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Tree
-    Tree object.</p>
+<ul>
+<li><strong>Tree</strong>: Tree object.</li>
+</ul>
 </div>
 
 
@@ -1042,15 +1064,18 @@ name : Optional[str]
 
             <div class="docstring"><p>Build tree from yaml string.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>yaml_string : str
-    Yaml string of child-parent map.</p>
+<ul>
+<li><strong>yaml_string</strong> (str):
+Yaml string of child-parent map.</li>
+</ul>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Tree
-    Tree object.</p>
+<ul>
+<li><strong>Tree</strong>: Tree object.</li>
+</ul>
 </div>
 
 

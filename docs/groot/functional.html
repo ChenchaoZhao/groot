@@ -280,17 +280,22 @@
 
             <div class="docstring"><p>Build dictionary of nodes from child-to-parent mapping.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>child_to_parent : Dict[str, str]
-    Maps child node name to its parent's name.</p>
+<ul>
+<li><strong>child_to_parent</strong> (Dict[str, str]):
+Maps child node name to its parent's name.</li>
+</ul>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Dict[str, Node]
-    Lookup table for all nodes: name -> Node where Node contains
-    - parent name
-    - set of child names</p>
+<ul>
+<li><strong>Dict[str, Node]</strong>: Lookup table for all nodes: name -> Node where Node contains
+<ul>
+<li>parent name</li>
+<li>set of child names</li>
+</ul></li>
+</ul>
 </div>
 
 
@@ -356,12 +361,14 @@
 
             <div class="docstring"><p>Push atoms to all nodes.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>nodes : Dict[str, Node]
-    Lookup table of <code>nodes</code>.
-atoms : Optional[Union[Set[str], List[str], Tuple[str]]]
-    Given set of <code>atoms</code>. If None, <code>atoms</code> will be inferred from <code>nodes</code></p>
+<ul>
+<li><strong>nodes</strong> (Dict[str, Node]):
+Lookup table of <code>nodes</code>.</li>
+<li><strong>atoms</strong> (Optional[Union[Set[str], List[str], Tuple[str]]]):
+Given set of <code>atoms</code>. If None, <code>atoms</code> will be inferred from <code>nodes</code></li>
+</ul>
 </div>
 
 
@@ -407,17 +414,20 @@ atoms : Optional[Union[Set[str], List[str], Tuple[str]]]
 
             <div class="docstring"><p>Get all leaf nodes of a given root (included).</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>root : str
-    Name of <code>root</code> which should be in nodes.
-nodes : Dict[str, Node]
-    Lookup table of <code>nodes</code>.</p>
+<ul>
+<li><strong>root</strong> (str):
+Name of <code>root</code> which should be in nodes.</li>
+<li><strong>nodes</strong> (Dict[str, Node]):
+Lookup table of <code>nodes</code>.</li>
+</ul>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Set[str]
-    Set of all leaf nodes including root.</p>
+<ul>
+<li><strong>Set[str]</strong>: Set of all leaf nodes including root.</li>
+</ul>
 </div>
 
 
@@ -484,15 +494,18 @@ nodes : Dict[str, Node]
 
             <div class="docstring"><p>Assign levels to given nodes.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>nodes : Dict[str, Node]
-    Lookup table of nodes.</p>
+<ul>
+<li><strong>nodes</strong> (Dict[str, Node]):
+Lookup table of nodes.</li>
+</ul>
 
-<h2 id="returns">Returns</h2>
+<h6 id="returns">Returns</h6>
 
-<p>Tuple[Dict[str, int], List[Set[str]]]
-    Level lookup table, and levels of nodes.</p>
+<ul>
+<li><strong>Tuple[Dict[str, int], List[Set[str]]]</strong>: Level lookup table, and levels of nodes.</li>
+</ul>
 </div>
 
 
