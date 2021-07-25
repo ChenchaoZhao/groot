@@ -13,7 +13,7 @@ Goals
 * List all atomic nodes
 """
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 from . import functional, tree, utils
 from .tree import Tree
