@@ -29,6 +29,8 @@ def draw_tree(
     Example
     -------
     ```
+    draw_tree(tree, show_level=True)
+
     0   1   2
     ┼───┼───┼
     a
