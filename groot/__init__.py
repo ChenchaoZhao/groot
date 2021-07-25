@@ -11,6 +11,28 @@ Goals
 * List all nodes
 * List nodes on a given depth
 * List all atomic nodes
+
+Example
+-------
+```
+import groot
+
+tree = groot.Tree.from_yaml(serialized_tree_string)
+groot.utils.draw_tree(tree, show_level=True)
+
+0   1   2
+┼───┼───┼
+a
+├── a.a
+│   ├── a.a.b ■
+│   └── a.a.a ■
+├── a.c ■
+└── a.b
+    └── a.b.a ■
+b
+├── b.a ■
+└── b.b ■
+```
 """
 
 __version__ = "0.1.2"

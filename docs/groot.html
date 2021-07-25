@@ -31,6 +31,7 @@
                     <h2>Contents</h2>
                     <ul>
   <li><a href="#goals">Goals</a></li>
+  <li><a href="#example">Example</a></li>
 </ul>
 
 
@@ -69,6 +70,27 @@ construct the python class.</p>
 <li>List nodes on a given depth</li>
 <li>List all atomic nodes</li>
 </ul>
+
+<h6 id="example">Example</h6>
+
+<pre><code>import groot
+
+tree = <a href="#Tree.from_yaml">groot.Tree.from_yaml</a>(serialized_tree_string)
+<a href="groot/utils.html#draw_tree">groot.utils.draw_tree</a>(tree, show_level=True)
+
+0   1   2
+┼───┼───┼
+a
+├── a.a
+│   ├── a.a.b ■
+│   └── a.a.a ■
+├── a.c ■
+└── a.b
+    └── a.b.a ■
+b
+├── b.a ■
+└── b.b ■
+</code></pre>
 </div>
 
                         <details>
@@ -86,9 +108,31 @@ construct the python class.</p>
 <span class="sd">* List all nodes</span>
 <span class="sd">* List nodes on a given depth</span>
 <span class="sd">* List all atomic nodes</span>
+
+<span class="sd">Example</span>
+<span class="sd">-------</span>
+<span class="sd">```</span>
+<span class="sd">import groot</span>
+
+<span class="sd">tree = groot.Tree.from_yaml(serialized_tree_string)</span>
+<span class="sd">groot.utils.draw_tree(tree, show_level=True)</span>
+
+<span class="sd">0   1   2</span>
+<span class="sd">┼───┼───┼</span>
+<span class="sd">a</span>
+<span class="sd">├── a.a</span>
+<span class="sd">│   ├── a.a.b ■</span>
+<span class="sd">│   └── a.a.a ■</span>
+<span class="sd">├── a.c ■</span>
+<span class="sd">└── a.b</span>
+<span class="sd">    └── a.b.a ■</span>
+<span class="sd">b</span>
+<span class="sd">├── b.a ■</span>
+<span class="sd">└── b.b ■</span>
+<span class="sd">```</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.2&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">functional</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">.tree</span> <span class="kn">import</span> <span class="n">Tree</span>
