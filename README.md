@@ -1,4 +1,6 @@
 # Groot
+[![test](https://github.com/ChenchaoZhao/groot/actions/workflows/lint-test.yaml/badge.svg)](https://github.com/ChenchaoZhao/groot/actions/workflows/lint-test.yaml)
+
 Manage hierarchical concept trees with style
 
 ## Goals
