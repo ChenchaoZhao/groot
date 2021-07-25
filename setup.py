@@ -16,7 +16,7 @@ setup(
     packages=find_packages(exclude=["tests"]),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    install_requires=["dataclasses"],
+    install_requires=["dataclasses", "yaml"],
     license="MIT",
     url="https://chenchaozhao.github.io/groot/",
 )
