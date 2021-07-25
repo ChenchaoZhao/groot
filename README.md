@@ -14,3 +14,25 @@ Manage hierarchical concept trees with style
 * List all nodes
 * List nodes on a given depth
 * List all atomic nodes
+
+## Example
+```python
+import groot
+
+tree = groot.Tree.from_yaml(serialized_file)
+print(groot.utils.draw_tree(tree, show_level=True))
+
+    0   1   2
+    ┼───┼───┼
+    a
+    ├── a.a
+    │   ├── a.a.b ■
+    │   └── a.a.a ■
+    ├── a.c ■
+    └── a.b
+        └── a.b.a ■
+    b
+    ├── b.a ■
+    └── b.b ■
+
+```
