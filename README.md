@@ -3,6 +3,9 @@
 
 Manage hierarchical concept trees with style
 
+## Install
+```pip install i-am-groot```
+
 ## Goals
 * Save the trees in most compact format
 * Be able to load the trees from serialized files
